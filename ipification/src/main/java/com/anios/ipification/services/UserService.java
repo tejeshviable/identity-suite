@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.LinkedMultiValueMap;
 
 import java.util.Map;
 import java.util.UUID;
@@ -56,6 +57,49 @@ public class UserService {
 
     public ResponseEntity<?> saveVerificationStatus(MultiValueMap<String,String> values) {
 
+        values.add("grant_type","authorization_code");
+        values.add("redirect_uri",clientCallbackUri);
+        values.add("client_id",clientId);
+        values.add("client_secret",clientSecret);
+
+        ResponseEntity<?> tokens =  ipificationFeign.fetchToken(values);
+
+        if(tokens.getStatusCode().is2xxSuccessful()){
+            Map<String, Object> body = (Map<String, Object>) tokens.getBody();
+
+            if (body != null && body.containsKey("access_token")) {
+                String accessToken = (String) body.get("access_token");
+                String bearerToken = "Bearer "+accessToken;
+
+                ResponseEntity<?> userInfoResponse = ipificationFeign.userDetails(bearerToken);
+                if (userInfoResponse.getStatusCode().is2xxSuccessful()) {
+                    Map<String, Object> userBody = (Map<String,Object>) userInfoResponse.getBody();
+                    if(userBody != null && userBody.containsKey("phone_number_verified")){
+                        String status = (String) userBody.get("phone_number_verified");
+                        String login_hint = (String) userBody.get("login_hint");
+
+
+                        RedisDto redisDto = (RedisDto) redisService.getDataFromRedis(login_hint);
+                        redisDto.setStatus(status);
+
+                        redisService.saveDataToRedis(login_hint,redisDto);
+
+                        log.info("redis-data : {}", redisService.getDataFromRedis(login_hint));
+                    }
+                    return userInfoResponse;
+                } else {
+                    return ResponseEntity.status(userInfoResponse.getStatusCode())
+                            .body("Failed to retrieve user details");
+                }
+            }
+        }
+        return tokens;
+    }
+
+    public ResponseEntity<?> saveVerificationStatus(String code) {
+
+        MultiValueMap<String,String> values = new LinkedMultiValueMap<>();
+        values.add("code",code);
         values.add("grant_type","authorization_code");
         values.add("redirect_uri",clientCallbackUri);
         values.add("client_id",clientId);

@@ -28,6 +28,19 @@ public class UserController {
         return new ResponseEntity<>(userService.saveVerificationStatus(formData).getBody(), HttpStatus.OK);
     }
 
+    @GetMapping("/status/save")
+    @ResponseBody
+    public ResponseEntity<String> handleRedirect(
+            @RequestParam("code") String code,
+            @RequestParam("state") String state,
+            @RequestParam(value = "error", required = false) String error) {
+
+        // Log the received parameters
+        System.out.println("Received code: " + code);
+        System.out.println("Received state: " + state);
+        return new ResponseEntity<>(userService.saveVerificationStatus(code), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/user/status")
     public ResponseEntity<RedisDto> getUserStatus(@RequestBody MobileRequestDTO mobileRequestDTO){
         return new ResponseEntity<>(userService.getUserStatus(mobileRequestDTO.getMobileNumber()),HttpStatus.OK);
