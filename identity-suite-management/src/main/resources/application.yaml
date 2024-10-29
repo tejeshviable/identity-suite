@@ -1,0 +1,86 @@
+server:
+  port: 8081
+  servlet:
+    contextPath: /api/provider
+telecom:
+  providers:
+    - provider: Telkomsel
+      prefixes:
+        - 0811
+        - 0812
+        - 0813
+        - 0821
+        - 0822
+        - 0823
+        - 0851
+        - 0852
+        - 0853
+      type: GSM
+    - provider: Bakrie Telecom (Esia)
+      prefixes:
+        - (021)
+      type: CDMA
+    - provider: Telkomsel
+      prefixes:
+        - 0811
+        - 0812
+        - 0813
+        - 0821
+        - 0822
+        - 0823
+        - 0851
+        - 0852
+        - 0853
+      type: GSM (Prepaid/Postpaid)
+    - provider: Indosat Ooredoo
+      prefixes:
+        - 0814
+        - 0815
+        - 0816
+        - 0855
+        - 0856
+        - 0857
+        - 0858
+      type: GSM (Prepaid/Postpaid)
+    - provider: Indosat (3 - Tri)
+      prefixes:
+        - 0895
+        - 0896
+        - 0897
+        - 0898
+        - 0899
+      type: GSM
+    - provider: XL Axiata
+      prefixes:
+        - 0817
+        - 0818
+        - 0819
+        - 0859
+        - 0877
+        - 0878
+      type: GSM (Prepaid/Postpaid)
+    - provider: AXIS (by XL Axiata)
+      prefixes:
+        - 0831
+        - 0832
+        - 0833
+        - 0838
+        - 0859
+      type: GSM
+    - provider: Smartfren
+      prefixes:
+        - 0881
+        - 0882
+        - 0883
+        - 0884
+        - 0885
+        - 0886
+        - 0887
+        - 0888
+        - 0889
+      type: CDMA/GSM (4G)
+    - provider: Ceria (Net1)
+      prefixes:
+        - 0827
+        - 0828
+      type: CDMA

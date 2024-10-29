@@ -1,0 +1,37 @@
+spring:
+  kafka:
+    bootstrap-servers: 15.206.106.12:9092
+    template:
+      default-topic: send-otp-queue
+      queue: send-otp-queue
+    consumer:
+      group-id: otp-group
+      auto-offset-reset: earliest
+      bootstrap-servers: 15.206.106.12:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+server:
+  port: '7002'
+  servlet:
+    contextPath: "/api/silent"
+
+application:
+  id: ce8a68cb-d7ee-42eb-89dc-2f4e01b512a2
+  topic:
+    sendVerifyOTP:
+      queue: send-otp-queue
+      group-id: send-otp-queue
+      concurrency: 6
+    auditEvent:
+      queue: audit-queue
+
+
+
+feignClient:
+  silentAuthentication:
+    url: https://api.nexmo.com/v2/verify
+  sendOtp:
+    url: http://localhost:7001/api/otp
+  messente:
+    url: https://messente.com/messente-api
+

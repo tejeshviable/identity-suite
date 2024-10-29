@@ -1,0 +1,39 @@
+server:
+  port: 7005
+  servlet:
+    contextPath: /api/audit
+
+logging:
+  file:
+    name: logs/Audit-Management.log
+    max-history: 5
+    max-size: 10MB
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    health:
+      show-details: ALWAYS
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8760
+  application:
+    name: AUDIT-MANAGEMENT
+  kafka:
+    bootstrap-servers: ${KAFKA_HOST:15.206.106.12}:${KAFKA_PORT:9092}
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/admin
+  output:
+    ansi:
+      enabled: ALWAYS
+application:
+  audit:
+    period: 2
+  topic:
+    audit:
+      queue: audit-queue
+      group-id: audit-queue
