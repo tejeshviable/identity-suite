@@ -28,7 +28,7 @@ public class UserController {
 //        return new ResponseEntity<>(userService.saveVerificationStatus(formData).getBody(), HttpStatus.OK);
 //    }
 
-    @GetMapping("/validate")
+    @GetMapping("/callback")
     @ResponseBody
     public ResponseEntity<?> handleRedirect(
             @RequestParam("code") String code,
