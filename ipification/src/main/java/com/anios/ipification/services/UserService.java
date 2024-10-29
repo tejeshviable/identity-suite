@@ -128,8 +128,8 @@ public class UserService {
                         redisService.saveDataToRedis(login_hint,redisDto);
 
                         log.info("redis-data : {}", redisService.getDataFromRedis(login_hint));
+                        return redisDto;
                     }
-                    return redisDto;
                 }
             }
         }
