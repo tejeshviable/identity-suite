@@ -28,7 +28,7 @@ public class UserController {
         return new ResponseEntity<>(userService.saveVerificationStatus(formData).getBody(), HttpStatus.OK);
     }
 
-    @GetMapping("/status/save")
+    @GetMapping("/status/save1")
     @ResponseBody
     public ResponseEntity<String> handleRedirect(
             @RequestParam("code") String code,
