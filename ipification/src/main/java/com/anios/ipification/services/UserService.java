@@ -74,7 +74,6 @@ public class UserService {
                 ResponseEntity<?> userInfoResponse = ipificationFeign.userDetails(bearerToken);
                 if (userInfoResponse.getStatusCode().is2xxSuccessful()) {
                     Map<String, Object> userBody = (Map<String,Object>) userInfoResponse.getBody();
-                    System.out.println("Tejeshvi : {}"+ userBody);
                     if(userBody != null && userBody.containsKey("phone_number_verified")){
                         String status = (String) userBody.get("phone_number_verified");
                         String login_hint = (String) userBody.get("login_hint");
@@ -119,6 +118,7 @@ public class UserService {
                 if (userInfoResponse.getStatusCode().is2xxSuccessful()) {
                     Map<String, Object> userBody = (Map<String,Object>) userInfoResponse.getBody();
                     if(userBody != null && userBody.containsKey("phone_number_verified")){
+                        System.out.println("Tejeshvi : {}"+ userBody);
                         String status = (String) userBody.get("phone_number_verified");
                         String login_hint = (String) userBody.get("login_hint");
 
