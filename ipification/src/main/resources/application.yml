@@ -1,0 +1,35 @@
+server:
+  port: 7035
+  servlet:
+    contextPath: /api/v1/ipification
+    multipart:
+      enabled: true
+      max-file-size: 500MB
+      max-request-size: 500MB
+spring:
+  redis:
+    host: localhost
+    port: 6379
+  main:
+    allow-bean-definition-overriding: true
+url:
+  redirect: https://enatfqzw3yetv.x.pipedream.net/
+  clientId: 5b4dcd2613944553b42124ab6d481619
+  client-callback-uri: https://enatfqzw3yetv.x.pipedream.net/
+  #client-callback-uri: http://localhost:8081/api/create/token
+  code: ip:phone_verify
+  callback: https://api.stage.ipification.com/auth/realms/ipification/protocol/openid-connect/auth?response_type=code&redirect_uri=
+  clientSecret: ke2T4iTUXxaNjiESYqJKpcwUrqiCDTLG
+  #{{client-callback-uri}}&client_id={{client-id}}&scope=openid ip:phone_verify&state=IOHUniqueState001&login_hint=919884824837
+
+feign:
+  token:
+    url: https://api.stage.ipification.com
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+
+
+
+
