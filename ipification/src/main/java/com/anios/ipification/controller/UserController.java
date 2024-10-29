@@ -22,11 +22,11 @@ public class UserController {
         return new ResponseEntity<>(userService.generateUrl(mobileRequestDTO), HttpStatus.MOVED_TEMPORARILY);
     }
 
-//    @PostMapping(value="/validate")
-//    public ResponseEntity<?> saveVerificationStatus(@RequestBody MultiValueMap<String, String> formData)
-//    {
-//        return new ResponseEntity<>(userService.saveVerificationStatus(formData).getBody(), HttpStatus.OK);
-//    }
+    @PostMapping(value="/callback1")
+    public ResponseEntity<?> saveVerificationStatus(@RequestBody MultiValueMap<String, String> formData)
+    {
+        return new ResponseEntity<>(userService.saveVerificationStatus(formData).getBody(), HttpStatus.OK);
+    }
 
     @GetMapping("/callback")
     @ResponseBody
