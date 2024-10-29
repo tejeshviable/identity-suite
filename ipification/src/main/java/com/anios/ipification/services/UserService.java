@@ -96,7 +96,7 @@ public class UserService {
         return tokens;
     }
 
-    public ResponseEntity<?> saveVerificationStatus(String code) {
+    public RedisDto saveVerificationStatus(String code) {
 
         MultiValueMap<String,String> values = new LinkedMultiValueMap<>();
         values.add("code",code);
@@ -129,14 +129,13 @@ public class UserService {
 
                         log.info("redis-data : {}", redisService.getDataFromRedis(login_hint));
                     }
-                    return userInfoResponse;
-                } else {
-                    return ResponseEntity.status(userInfoResponse.getStatusCode())
-                            .body("Failed to retrieve user details");
+                    return redisDto;
                 }
             }
         }
-        return tokens;
+        RedisDto dto = new RedisDto();
+        dto.setStatus("false");
+        return dto;
     }
 
     public RedisDto getUserStatus(String mobileNumber) {
