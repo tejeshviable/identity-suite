@@ -30,7 +30,7 @@ public class UserController {
 
     @GetMapping("/status/save1")
     @ResponseBody
-    public ResponseEntity<String> handleRedirect(
+    public ResponseEntity<?> handleRedirect(
             @RequestParam("code") String code,
             @RequestParam("state") String state,
             @RequestParam(value = "error", required = false) String error) {
