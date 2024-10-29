@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/create/generateUrl")
+    @PostMapping("/generateUrl")
     public ResponseEntity<GenerateUrlResponseDTO> generateUrl(@RequestBody MobileRequestDTO mobileRequestDTO){
         return new ResponseEntity<>(userService.generateUrl(mobileRequestDTO), HttpStatus.MOVED_TEMPORARILY);
     }
