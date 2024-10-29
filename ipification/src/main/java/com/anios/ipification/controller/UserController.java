@@ -17,18 +17,18 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/create/callback")
+    @PostMapping("/create/generateUrl")
     public ResponseEntity<GenerateUrlResponseDTO> generateUrl(@RequestBody MobileRequestDTO mobileRequestDTO){
         return new ResponseEntity<>(userService.generateUrl(mobileRequestDTO), HttpStatus.MOVED_TEMPORARILY);
     }
 
-    @PostMapping(value="/status/save")
-    public ResponseEntity<?> saveVerificationStatus(@RequestBody MultiValueMap<String, String> formData)
-    {
-        return new ResponseEntity<>(userService.saveVerificationStatus(formData).getBody(), HttpStatus.OK);
-    }
+//    @PostMapping(value="/validate")
+//    public ResponseEntity<?> saveVerificationStatus(@RequestBody MultiValueMap<String, String> formData)
+//    {
+//        return new ResponseEntity<>(userService.saveVerificationStatus(formData).getBody(), HttpStatus.OK);
+//    }
 
-    @GetMapping("/status/save1")
+    @GetMapping("/validate")
     @ResponseBody
     public ResponseEntity<?> handleRedirect(
             @RequestParam("code") String code,
@@ -41,7 +41,7 @@ public class UserController {
         return new ResponseEntity<>(userService.saveVerificationStatus(code), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/user/status")
+    @GetMapping(value = "/status")
     public ResponseEntity<RedisDto> getUserStatus(@RequestBody MobileRequestDTO mobileRequestDTO){
         return new ResponseEntity<>(userService.getUserStatus(mobileRequestDTO.getMobileNumber()),HttpStatus.OK);
     }
